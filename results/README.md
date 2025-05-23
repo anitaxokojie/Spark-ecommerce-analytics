@@ -1,5 +1,3 @@
-## **3. `results/README.md`**
-```markdown
 # Analysis Results
 
 This directory contains outputs from the big data analysis.
