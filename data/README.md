@@ -13,7 +13,6 @@ This project uses the Looker E-commerce dataset from Kaggle.
 ### Expected Files
 data/
 ├── users.csv                    # 112,460 customer records
-
 ├── orders.csv                   # 50,560 order records
 ├── order_items.csv             # 37,506 line items
 ├── products.csv                # 14,224 products
