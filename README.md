@@ -108,5 +108,5 @@ This was my first real Spark project. Learned a lot about distributed computing 
 
 ---
 
-**Author:** Anita Xokojie  
+**Author:** Anita Okojie  
 **License:** MIT
