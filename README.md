@@ -1,85 +1,83 @@
-# Spark E-commerce Analytics
+E-commerce Customer Segmentation with Apache Spark
+Big data project analyzing 180K+ e-commerce transactions using PySpark and K-means clustering.
+What I Built
+I used Apache Spark to process e-commerce transactions and segment customers based on their purchasing behavior. The goal was to identify high-value customers and understand which product categories drive the most profit.
+Tech Stack: PySpark 3.5.5, MLlib, Python 3.12, Jupyter
+Dataset: Looker E-commerce BigQuery (180K transactions, 80K customers)
+Main Findings
+Customer Segments (K-means, k=3)
+After clustering 80K+ customers by purchase frequency and total spend:
 
-![Python](https://img.shields.io/badge/python-3.8%2B-blue)
-![Apache Spark](https://img.shields.io/badge/Apache%20Spark-3.5-orange)
-![PySpark](https://img.shields.io/badge/PySpark-MLlib-red)
+Low-Value (67%): Average $63 lifetime spend, typically 1-2 orders. These are mostly one-time buyers.
+Mid-Value (28%): Average $236 spend across ~3 orders. Regular customers worth targeting for upsells.
+High-Value (5%): Average $568 spend with 5+ orders. Our VIPs who need retention programs.
 
-Big data analytics on 500K+ e-commerce records using Apache Spark and PySpark. Features customer segmentation with K-means clustering and product recommendations with ALS collaborative filtering on distributed data.
+The top 5% of customers generate over 3x more revenue than the average customer.
+Product Performance
+Best-selling items:
 
-## 🎯 Project Overview
+Wrangler Men's Jeans: 62 units
+Puma Socks: 48 units
+7 For All Mankind Jeans: 41 units
 
-This project demonstrates distributed big data processing on e-commerce data using Apache Spark. I implemented customer segmentation and product recommendation systems that scale horizontally across cluster nodes.
+Most profitable categories:
 
-**Dataset**: Looker E-commerce Dataset (7 tables, 500K+ total records)
-**Technologies**: PySpark, Spark MLlib, Hadoop HDFS concepts, Distributed Computing
+Outerwear & Coats: $722K profit (55% margin)
+Jeans: $583K profit (46% margin)
+Sweaters: $437K profit (52% margin)
 
-📊 Key Results
-Customer Segmentation (K-means)
-High-Value Loyal (23%): Generate 43% of revenue
-High-Value Occasional (31%): High spend per transaction
-Low-Engagement (46%): Represent only 18% of revenue
-
-Recommendation System (ALS)
-RMSE: 0.82
-Cross-category recommendations: 68%
-Successfully predicts future purchases with 23% accuracy
-
-Business Impact
-Identified 27 high-selling products with low stock
-Electronics category shows highest profit margin (49.7%)
-Data-driven customer segmentation enables targeted marketing
-
-🛠️ Technologies
-Apache Spark 3.5: Distributed data processing
-PySpark MLlib: Machine learning at scale
-Python: pandas, NumPy, Matplotlib
-Jupyter: Interactive analysis
-
-🚀 Quick Start
+How to Run
 bash# Install dependencies
 pip install -r requirements.txt
 
 # Download dataset from Kaggle
-# Place CSV files in data/ directory (see data/README.md)
+# https://www.kaggle.com/datasets/mustafakeser4/looker-ecommerce-bigquery-dataset
 
-# Run analysis
-jupyter notebook Ecommerce_Big_Data_Analysis.ipynb
-📁 Project Structure
-├── Ecommerce_Big_Data_Analysis.ipynb  # Main analysis notebook
-├── data/                              # Dataset directory
-├── results/                           # Analysis outputs
-├── requirements.txt                   # Python dependencies
+# Open notebook
+jupyter notebook PySpark_Ecommerce_Clustering.ipynb
+The notebook will download the data automatically via kagglehub if you have the API configured.
+Technical Highlights
+Spark Configuration
+Had to configure Spark for Windows - set PYSPARK_PYTHON environment variables and allocate 2GB to executor/driver memory. Also used legacy time parser for the timestamp columns.
+Data Cleaning
+The timestamps had timezone suffixes that broke Spark's default parser, so I used regex to strip them. Also had to explicitly cast price/cost columns to DoubleType since Spark's schema inference was inconsistent.
+Joins
+Created a comprehensive dataset by joining orders → order_items → products → users. Renamed columns to avoid ambiguous references (e.g., product_id vs product_id_ref). Cached the final dataframe since it gets reused for multiple aggregations.
+ML Pipeline
+Used VectorAssembler to combine frequency, monetary, and avg_basket features. Trained K-means with k=3 (chose 3 after looking at the business context - didn't want too many micro-segments). Model assigns each customer to a cluster, then I aggregated to get segment stats.
+Business Recommendations
+Based on the segmentation:
+Low-Value Customers (67%)
+Run re-engagement campaigns with 15-20% discounts. Goal is converting them to repeat buyers.
+Mid-Value Customers (28%)
+Upsell with product bundles (e.g., jeans + belt combos). These customers are already engaged.
+High-Value Customers (5%)
+VIP treatment - loyalty program, free shipping, early sale access. Can't afford to lose these.
+Inventory
+Stock up on Outerwear since it has the highest margin (55%) and solid volume. Jeans are the volume leader but lower margin (46%).
+What I'd Add Next
+
+Seasonal Analysis: Break down sales by month/quarter to see if Outerwear spikes in Q4 or Swim in Q2.
+Geographic Segmentation: Dataset has country data - could cluster customers by region (US vs China vs EU).
+Time Series Forecasting: Predict demand for top SKUs to optimize inventory.
+Code Refactoring: Turn the notebook into a production pipeline with modular functions.
+
+Current Limitations
+
+Analysis is a snapshot (not tracking changes over time)
+No customer churn prediction
+K-means uses arbitrary k=3 (didn't calculate optimal k with elbow method)
+Running locally on Windows instead of a real Spark cluster
+
+Project Structure
+├── PySpark_Ecommerce_Clustering.ipynb  # Main analysis
+├── data/                               # CSV files (download from Kaggle)
+├── results/                            # Output visualizations
+├── requirements.txt                    
 └── README.md
 
-🔍 Analysis Pipeline
-Data Loading & Preprocessing: Cleaned 500K+ records across 7 tables
-Exploratory Data Analysis: Examined customer behavior and product performance
-Customer Segmentation: K-means clustering identified 3 distinct customer groups
-Recommendation Engine: ALS collaborative filtering for personalized suggestions
-Business Insights: Actionable recommendations for inventory and marketing
+Notes
+This was my first real Spark project. Learned a lot about distributed computing and had to troubleshoot Spark on Windows (not officially supported). Processing the full dataset took ~35 minutes on my laptop.
 
-📈 Sample Outputs
-Customer Segments
-High-Value Loyal: avg 12.3 orders, $892 total spend
-High-Value Occasional: avg 3.1 orders, $654 total spend  
-Low-Engagement: avg 1.4 orders, $87 total spend
-Top Product Categories by Revenue
-
-Women's Apparel: $1.2M
-Men's Apparel: $980K
-Electronics: $820K
-
-💡 Key Insights
-Inventory Management: 27 high-demand products need restocking
-Pricing Strategy: Electronics maintain 49.7% margins vs 41.2% for apparel
-Customer Focus: Top 23% of customers drive 43% of revenue
-Cross-selling: Recommendation system identifies 68% cross-category opportunities
-
-📝 Future Enhancements
-Real-time streaming analytics with Spark Streaming
-Deep learning product recommendations with neural collaborative filtering
-A/B testing framework for recommendation strategies
-Integration with cloud platforms (AWS EMR, Databricks)
-
-📄 License
-MIT License - see LICENSE file for details
+**Author:** Anita Okojie  
+**License:** MIT
