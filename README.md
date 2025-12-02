@@ -49,19 +49,6 @@ jupyter notebook PySpark_Ecommerce_Clustering.ipynb
 
 The notebook will attempt to download data automatically via kagglehub if you have a Kaggle API token configured. Otherwise, download manually and place CSVs in the `data/` folder.
 
-## Processing Time
-
-**First run (with dataset download):**
-- Kaggle dataset download: 20-30 minutes (depends on connection)
-- Spark data loading: 3-5 minutes
-- Analysis + ML clustering: 1-2 minutes
-- Total: ~35 minutes
-
-**Subsequent runs:**
-- Analysis only: ~2 minutes (data already cached locally)
-
-Tested on: Windows laptop, Intel i5, 8GB RAM
-
 ## Technical Details
 
 ### Spark Configuration
