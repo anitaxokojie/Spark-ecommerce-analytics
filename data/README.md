@@ -48,10 +48,6 @@ The events and inventory tables are in the dataset but weren't needed for this a
 - Age column needed int casting
 - Some orders have null `returned_at` values (that's fine)
 
-## Processing Time
-
-Full dataset took about 35 minutes on my laptop (i5, 8GB RAM).
-
 ## Auto-Download
 
 The notebook downloads via kagglehub:
