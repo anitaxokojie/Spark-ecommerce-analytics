@@ -207,7 +207,10 @@ For this dataset size, pandas would work fine. But I wanted to practice Spark si
 
 ## Notes
 
-This was my first real Spark project. Learned a lot about distributed computing and had to debug some Windows-specific issues (Spark isn't officially supported on Windows). The trickiest part was getting the timestamp parsing to work - ended up using regex to strip timezone info.
+This project demonstrates **end-to-end data engineering and machine learning** using PySpark to analyze customer behavior patterns and product profitability from a large-scale e-commerce dataset.
+
+**Key outcomes:** Identified 3 actionable customer segments and ranked 10 most profitable product categories, enabling data-driven marketing strategies.I Learned a lot about distributed computing and had to debug some Windows-specific issues 
+(Spark isn't officially supported on Windows).The trickiest part was getting the timestamp parsing to work - ended up using regex to strip timezone info.
 
 The clustering results were interesting. The "high-value" segment is tiny (5%) but generates massive revenue. In a real business setting, I'd build a lookalike model to find more customers who match that profile.
 
