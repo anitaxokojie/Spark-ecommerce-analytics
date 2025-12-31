@@ -182,7 +182,7 @@ If I had more time, I'd add:
 ##  Key Findings
 
 ### Customer Segmentation Results
-![Customer Segments](results/customer_segments.png)
+![Customer Segments](results/customer_segmentation.png)
 
 **Three customer clusters identified (K=3, Silhouette Score: 0.524):**
 
