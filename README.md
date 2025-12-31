@@ -3,7 +3,7 @@
 > Customer segmentation and profitability analysis using PySpark MLlib on 180K+ transactions
 
 
-**Quick Links**
+**Quick Links:**
 **[View Notebook](PySpark_Ecommerce_Clustering.ipynb)** | **[Results Folder](results/)** | **[Key Findings](#-key-findings)**
 ---
 
