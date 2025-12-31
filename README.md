@@ -122,7 +122,7 @@ If I had more time, I'd add:
 └── README.md                           # This file
 ```
 
-## 📊 Key Findings
+##  Key Findings
 
 ### Customer Segmentation
 ![Customer Segments](results/customer_segments.png)
