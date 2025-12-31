@@ -122,6 +122,25 @@ If I had more time, I'd add:
 └── README.md                           # This file
 ```
 
+## 📊 Key Findings
+
+### Customer Segmentation
+![Customer Segments](results/customer_segments.png)
+
+**Three distinct customer clusters identified:**
+- **Cluster 0** (68%): 54,104 customers | Avg spend: $63 | 1.6 orders
+- **Cluster 2** (27%): 22,917 customers | Avg spend: $236 | 3.4 orders  
+- **Cluster 1** (5%): 3,903 VIP customers | Avg spend: $568 | 5.1 orders
+
+### Top Performing Categories
+![Category Profitability](results/category_profitability.png)
+
+**Top 3 Revenue Drivers:**
+1. **Oatmeals & Coats** - $723K profit (73% margin)
+2. **Jeans** - $253K profit (46% margin)
+3. **Sweaters** - $247K profit (51% margin)
+
+
 ## Why Spark for This Dataset?
 
 The dataset has 180K transactions, 2.4M events, and 500K inventory records. Here's why I used Spark instead of pandas:
