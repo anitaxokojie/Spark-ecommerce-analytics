@@ -1,6 +1,7 @@
 # E-commerce Customer Segmentation with Apache Spark
 
 Big data project analyzing 180K+ e-commerce transactions using PySpark and K-means clustering.
+
 ![Python](https://img.shields.io/badge/python-3.9+-blue)
 ![Status](https://img.shields.io/badge/status-production-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
