@@ -5,7 +5,7 @@ This folder contains visualization outputs from running the notebook.
 ## Files
 
 **Visualizations:**
-- `customer_segments.png` - Three-panel chart showing avg spend, avg orders, and customer distribution
+- `customer_segmentation.png` - Three-panel chart showing avg spend, avg orders, and customer distribution
 - `category_profitability.png` - Horizontal bar chart of top 10 most profitable categories
 
 ## Sample Results Summary
