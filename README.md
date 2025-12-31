@@ -9,8 +9,9 @@ Big data project analyzing 180K+ e-commerce transactions using PySpark and K-mea
 
 I used Apache Spark to process e-commerce transactions and segment customers based on their purchasing behavior. The goal was to identify high-value customers and understand which product categories drive the most profit.
 
-**Tech Stack:** PySpark 3.5.5, MLlib, Python 3.12, Jupyter  
-**Dataset:** Looker E-commerce BigQuery (180K transactions, 80K customers)
+**Tech Stack:** Python • Apache Spark • MLlib • PySpark • Jupyter
+**Dataset:**  Looker E-commerce BigQuery (180K transactions, 80K customers)
+**Techniques:** K-means clustering, RFM analysis, Feature engineering
 
 ## Main Findings
 
