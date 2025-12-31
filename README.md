@@ -15,7 +15,9 @@
 I used Apache Spark to process e-commerce transactions and segment customers based on their purchasing behavior. The goal was to identify high-value customers and understand which product categories drive the most profit.
 
 **Tech Stack:** Python • Apache Spark • MLlib • PySpark • Jupyter
+
 **Techniques:** K-means clustering, RFM analysis, Feature engineering
+
 **Dataset:**  Looker E-commerce BigQuery (180K transactions, 80K customers)
 
 
