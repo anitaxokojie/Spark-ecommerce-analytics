@@ -75,6 +75,54 @@ Created a comprehensive dataset by joining orders → order_items → products �
 ### ML Pipeline
 Used `VectorAssembler` to combine frequency, monetary, and avg_basket features into a single vector. Trained K-means with k=3 (picked 3 based on business context - didn't want too many micro-segments). Used `seed=42` for reproducibility. The model assigns each customer to a cluster, then I aggregated to get the segment statistics.
 
+##  Code Highlights
+
+### Spark Configuration for Windows
+```python
+import findspark
+findspark.init()
+
+spark = SparkSession.builder \
+    .appName("Ecommerce Analytics") \
+    .config("spark.driver.memory", "4g") \
+    .getOrCreate()
+```
+
+### RFM Feature Engineering
+```python
+from pyspark.sql import functions as F
+
+rfm_df = joined_dataframe.groupBy('user_id').agg(
+    F.datediff(F.lit('2020-01-01'), F.max('order_date')).alias('recency'),
+    F.count('order_id').alias('frequency'),
+    F.sum('total_revenue').alias('monetary')
+)
+```
+
+### MLlib Clustering Pipeline
+```python
+from pyspark.ml.feature import VectorAssembler, StandardScaler
+from pyspark.ml.clustering import KMeans
+from pyspark.ml import Pipeline
+
+# Assemble and scale features
+assembler = VectorAssembler(
+    inputCols=['recency', 'frequency', 'monetary'],
+    outputCol='features'
+)
+scaler = StandardScaler(inputCol='features', outputCol='scaled_features')
+
+# K-Means with optimal k=3
+kmeans = KMeans(k=3, seed=42, featuresCol='scaled_features')
+
+# Build and train pipeline
+pipeline = Pipeline(stages=[assembler, scaler, kmeans])
+model = pipeline.fit(rfm_df)
+```
+
+**Dataset:** 180,000+ transaction records across 181,750 orders
+
+
 ## Business Recommendations
 
 Based on the segmentation results:
