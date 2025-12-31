@@ -1,6 +1,8 @@
 # E-commerce Customer Segmentation with Apache Spark
 
-Big data project analyzing 180K+ e-commerce transactions using PySpark and K-means clustering.
+> Customer segmentation and profitability analysis using PySpark MLlib on 180K+ transactions
+**[View Notebook](PySpark_Ecommerce_Clustering.ipynb)** | **[Results Folder](results/)** | **[Key Findings](#-key-findings)**
+---
 
 ![Python](https://img.shields.io/badge/python-3.9+-blue)
 ![Status](https://img.shields.io/badge/status-production-green)
