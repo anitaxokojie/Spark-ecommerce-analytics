@@ -103,24 +103,34 @@ rfm_df = joined_dataframe.groupBy('user_id').agg(
 ```python
 from pyspark.ml.feature import VectorAssembler, StandardScaler
 from pyspark.ml.clustering import KMeans
-from pyspark.ml import Pipeline
 
-# Assemble and scale features
+# Assemble RFM features into vector
 assembler = VectorAssembler(
     inputCols=['recency', 'frequency', 'monetary'],
     outputCol='features'
 )
-scaler = StandardScaler(inputCol='features', outputCol='scaled_features')
+rfm_features = assembler.transform(rfm_df)
 
-# K-Means with optimal k=3
-kmeans = KMeans(k=3, seed=42, featuresCol='scaled_features')
+# Standardize features for K-Means
+scaler = StandardScaler(inputCol='features', outputCol='scaled_features', 
+                        withMean=True, withStd=True)
+scaler_model = scaler.fit(rfm_features)
+rfm_scaled = scaler_model.transform(rfm_features)
 
-# Build and train pipeline
-pipeline = Pipeline(stages=[assembler, scaler, kmeans])
-model = pipeline.fit(rfm_df)
+# Apply K-Means clustering (k=3 determined via elbow method)
+kmeans = KMeans(k=3, seed=42, featuresCol='scaled_features', predictionCol='cluster')
+model = kmeans.fit(rfm_scaled)
+predictions = model.transform(rfm_scaled)
+
+# Silhouette score evaluation
+from pyspark.ml.evaluation import ClusteringEvaluator
+evaluator = ClusteringEvaluator(featuresCol='scaled_features', 
+                                 metricName='silhouette')
+silhouette = evaluator.evaluate(predictions)
+print(f"Silhouette Score: {silhouette:.3f}")  # 0.524
 ```
 
-**Dataset:** 180,000+ transaction records across 181,750 orders
+**Dataset:** 180,000+ transaction records, 80,924 unique customers
 
 
 ## Business Recommendations
@@ -171,21 +181,29 @@ If I had more time, I'd add:
 
 ##  Key Findings
 
-### Customer Segmentation
+### Customer Segmentation Results
 ![Customer Segments](results/customer_segments.png)
 
-**Three distinct customer clusters identified:**
-- **Cluster 0** (68%): 54,104 customers | Avg spend: $63 | 1.6 orders
-- **Cluster 2** (27%): 22,917 customers | Avg spend: $236 | 3.4 orders  
-- **Cluster 1** (5%): 3,903 VIP customers | Avg spend: $568 | 5.1 orders
+**Three customer clusters identified (K=3, Silhouette Score: 0.524):**
 
-### Top Performing Categories
-![Category Profitability](results/category_profitability.png)
+| Cluster | Size | % of Base | Avg Recency | Avg Frequency | Avg Monetary |
+|---------|------|-----------|-------------|---------------|--------------|
+| **0** | 54,104 | 66.8% | 98 days | 1.6 orders | $63 |
+| **1** | 3,903 | 4.8% | 28 days | 5.1 orders | $568 |
+| **2** | 22,917 | 28.3% | 65 days | 3.4 orders | $236 |
 
-**Top 3 Revenue Drivers:**
-1. **Oatmeals & Coats** - $723K profit (73% margin)
-2. **Jeans** - $253K profit (46% margin)
-3. **Sweaters** - $247K profit (51% margin)
+**Business Recommendations:**
+- **Cluster 1 (VIPs)**: High-value, frequent buyers - prioritize retention programs
+- **Cluster 2 (Growing)**: Medium spenders with engagement potential - upsell opportunities  
+- **Cluster 0 (At-Risk)**: Infrequent, low-spend - re-engagement campaigns needed
+
+### Category Profitability Analysis
+![Top Categories](results/category_profitability.png)
+
+**Top 3 Most Profitable Categories:**
+1. Oatmeals & Coats - $723K profit (73% margin)
+2. Jeans - $253K profit (46% margin)
+3. Sweaters - $247K profit (51% margin)
 
 
 ## Why Spark for This Dataset?
