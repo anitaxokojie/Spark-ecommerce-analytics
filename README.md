@@ -4,7 +4,7 @@
 
 
 **Quick Links:**
-**[View Notebook](PySpark_Ecommerce_Clustering.ipynb)** | **[Results Folder](results/)** | **[Key Findings](#-key-findings)**
+**[View Notebook](PySpark_Ecommerce_Clustering.ipynb)** | **[Results Folder](results/)** | **[Key Findings](#-Key-Findings)**
 
 
 ![Python](https://img.shields.io/badge/python-3.9+-blue)
