@@ -149,13 +149,12 @@ If I had more time, I'd add:
 4. **Elbow method** - Properly calculate optimal k instead of arbitrarily picking 3
 5. **Production pipeline** - Refactor notebook into modular functions for daily batch runs
 
-## Current Limitations
+## Fututre Enhancements 
 
-- This is a snapshot analysis, not tracking changes over time
-- No customer churn prediction or lifetime value modeling
-- K-means uses arbitrary k=3 (didn't calculate silhouette scores)
-- Running locally on Windows instead of a real distributed cluster
-- No A/B test framework for validating the business recommendations
+- Real-time streaming analytics using Spark Structured Streaming
+- Predictive modeling for customer churn
+- Integration with cloud platforms (AWS EMR/Databricks)
+- A/B testing framework for marketing campaigns
 
 ## Project Structure
 ```
