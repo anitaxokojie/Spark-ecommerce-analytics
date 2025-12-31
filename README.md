@@ -1,7 +1,9 @@
 # E-commerce Customer Segmentation with Apache Spark
 
 > Customer segmentation and profitability analysis using PySpark MLlib on 180K+ transactions
-**[View Notebook](PySpark_Ecommerce_Clustering.ipynb)** | **[Results Folder](results/)** | **[Key Findings](#-key-findings)**
+
+
+**Quick Links88 **[View Notebook](PySpark_Ecommerce_Clustering.ipynb)** | **[Results Folder](results/)** | **[Key Findings](#-key-findings)**
 ---
 
 ![Python](https://img.shields.io/badge/python-3.9+-blue)
