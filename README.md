@@ -233,6 +233,5 @@ This project demonstrates **end-to-end data engineering and machine learning** u
 The clustering results were interesting. The "high-value" segment is tiny (5%) but generates massive revenue. In a real business setting, I'd build a lookalike model to find more customers who match that profile.
 
 ---
-
-**Author:** Anita Okojie  
-**License:** MIT
+**License:** MIT License.
+**Contact:** Anita Okojie  | www.linkedin.com/in/anitaxo | anitaxokojie@gmail.com
